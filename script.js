@@ -31,7 +31,8 @@ function startHeroSlideshow() {
     images[0].addEventListener("load", () => {
       fallback && fallback.classList.add("hide");
     });
-    // In case of cache, also set a timeout fallback
+
+    // Fallback timeout
     setTimeout(() => {
       fallback && fallback.classList.add("hide");
     }, 1500);
