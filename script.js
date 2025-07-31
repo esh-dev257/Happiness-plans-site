@@ -23,13 +23,76 @@ function startHeroSlideshow() {
   // Show the first image immediately
   images.forEach((img, i) => (img.style.opacity = i === 0 ? "1" : "0"));
 
-  // Start the slideshow interval
-  setInterval(() => {
-    images[currentIndex].style.opacity = "0";
-    currentIndex = (currentIndex + 1) % images.length;
-    images[currentIndex].style.opacity = "1";
-  }, 1000);
+  // Wait 2 seconds, then start the slideshow interval
+  setTimeout(() => {
+    setInterval(() => {
+      images[currentIndex].style.opacity = "0";
+      currentIndex = (currentIndex + 1) % images.length;
+      images[currentIndex].style.opacity = "1";
+    }, 2000);
+  }, 2000);
 }
+
+// Alternative version with more control and smoother transitions
+function startHeroSlideshowAdvanced() {
+  const images = document.querySelectorAll(".hero-image");
+  let currentIndex = 0;
+  let isTransitioning = false;
+
+  if (!images.length) return;
+
+  // Initialize images
+  images.forEach((img, i) => {
+    img.style.transition = "opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1)";
+    img.style.position = "absolute";
+    img.style.top = "0";
+    img.style.left = "0";
+    img.style.width = "100%";
+    img.style.height = "100%";
+    img.style.objectFit = "cover";
+    img.style.opacity = i === 0 ? "1" : "0";
+    img.style.zIndex = i === 0 ? "2" : "1";
+  });
+
+  function transitionToNext() {
+    if (isTransitioning) return;
+
+    isTransitioning = true;
+    const currentImg = images[currentIndex];
+    const nextIndex = (currentIndex + 1) % images.length;
+    const nextImg = images[nextIndex];
+
+    // Prepare next image
+    nextImg.style.zIndex = "2";
+    nextImg.style.opacity = "1";
+
+    // Fade out current image
+    setTimeout(() => {
+      currentImg.style.opacity = "0";
+      currentImg.style.zIndex = "1";
+    }, 50);
+
+    // Update index and reset transition flag
+    setTimeout(() => {
+      currentIndex = nextIndex;
+      isTransitioning = false;
+    }, 1500);
+  }
+
+  // Start slideshow after initial delay
+  setTimeout(() => {
+    setInterval(transitionToNext, 5000);
+  }, 4000);
+}
+
+// Call the function when DOM is loaded
+document.addEventListener("DOMContentLoaded", function () {
+  // Use the basic version
+  startHeroSlideshow();
+
+  // OR use the advanced version (comment out the line above)
+  // startHeroSlideshowAdvanced();
+});
 
 // Parallax effect on scroll
 function heroParallax() {
