@@ -23,21 +23,7 @@ function startHeroSlideshow() {
   // Show the first image immediately
   images.forEach((img, i) => (img.style.opacity = i === 0 ? "1" : "0"));
 
-  // When the first image is loaded, fade out the yellow bg
-  const fallback = document.querySelector(".hero-bg-fallback");
-  if (images[0].complete) {
-    fallback && fallback.classList.add("hide");
-  } else {
-    images[0].addEventListener("load", () => {
-      fallback && fallback.classList.add("hide");
-    });
-
-    // Fallback timeout
-    setTimeout(() => {
-      fallback && fallback.classList.add("hide");
-    }, 1000);
-  }
-
+  // Start the slideshow interval
   setInterval(() => {
     images[currentIndex].style.opacity = "0";
     currentIndex = (currentIndex + 1) % images.length;
