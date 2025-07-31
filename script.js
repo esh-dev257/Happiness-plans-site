@@ -81,8 +81,8 @@ function startHeroSlideshowAdvanced() {
 
   // Start slideshow after initial delay
   setTimeout(() => {
-    setInterval(transitionToNext, 5000);
-  }, 4000);
+    setInterval(transitionToNext, 3000);
+  }, 2000);
 }
 
 // Call the function when DOM is loaded
