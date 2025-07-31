@@ -35,14 +35,14 @@ function startHeroSlideshow() {
     // Fallback timeout
     setTimeout(() => {
       fallback && fallback.classList.add("hide");
-    }, 1500);
+    }, 1000);
   }
 
   setInterval(() => {
     images[currentIndex].style.opacity = "0";
     currentIndex = (currentIndex + 1) % images.length;
     images[currentIndex].style.opacity = "1";
-  }, 2000);
+  }, 1000);
 }
 
 // Parallax effect on scroll
